@@ -1,0 +1,16 @@
+{
+    "name": "rashed/laravel-generator",
+    "description": "Custom module generator for Laravel",
+    "autoload": {
+        "psr-4": {
+            "Rashed\\Generator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rashed\\Generator\\GeneratorServiceProvider"
+            ]
+        }
+    }
+}
