@@ -1,16 +1,16 @@
 <?php
-namespace Rashed\Generator;
+namespace AhmedTechT\Generator;
 
 use Illuminate\Support\ServiceProvider;
 // استدعي الكوماندز من داخل الباكيدج نفسها وليس من App
-use Rashed\Generator\Console\Commands\RunAllCommand;
-use Rashed\Generator\Console\Commands\CreateServiceCommand;
-use Rashed\Generator\Console\Commands\CreateControllerCommand;
-use Rashed\Generator\Console\Commands\CreateDtoCommand;
-use Rashed\Generator\Console\Commands\CreateEntityCommand;
-use Rashed\Generator\Console\Commands\CreateMapperCommand;
-use Rashed\Generator\Console\Commands\CreateRepoImpCommand;
-use Rashed\Generator\Console\Commands\CreateRepositoryCommand;
+use AhmedTechT\Generator\Console\Commands\RunAllCommand;
+use AhmedTechT\Generator\Console\Commands\CreateServiceCommand;
+use AhmedTechT\Generator\Console\Commands\CreateControllerCommand;
+use AhmedTechT\Generator\Console\Commands\CreateDtoCommand;
+use AhmedTechT\Generator\Console\Commands\CreateEntityCommand;
+use AhmedTechT\Generator\Console\Commands\CreateMapperCommand;
+use AhmedTechT\Generator\Console\Commands\CreateRepoImpCommand;
+use AhmedTechT\Generator\Console\Commands\CreateRepositoryCommand;
 // استدعي كل الـ Commands بتاعتك هنا
 
 class GeneratorServiceProvider extends ServiceProvider

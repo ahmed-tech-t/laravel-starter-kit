@@ -1,6 +1,6 @@
 <?php
 
-namespace Rashed\Generator\Console\Commands;
+namespace AhmedTechT\Generator\Console\Commands;
 
 use Illuminate\Console\Command;
 

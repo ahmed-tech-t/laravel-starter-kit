@@ -1,12 +1,12 @@
 <?php
 
-namespace Rashed\Generator\Console\Commands;
+namespace AhmedTechT\Generator\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
 class CreateRepoImpCommand extends GeneratorCommand
 {
-    // ده الاسم اللي هتكتبه في الـ Terminal
+
     protected $signature = 'make:repoImpl {name}';
 
     /**
@@ -17,7 +17,7 @@ class CreateRepoImpCommand extends GeneratorCommand
         return __DIR__ . '/../../../stubs/c.repo.impl.stub';
     }
 
-    // بنحدد الفولدر اللي الملفات هتروح فيه أوتوماتيك
+
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace . '\Infrastructure\Persistence\repo';
@@ -41,7 +41,7 @@ class CreateRepoImpCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-        // هنا بنجيب الاسم اللي أنت كتبته في الكومند (مثلاً SaleUnit)
+
         $nameInput = $this->getNameInput();
         $model = $this->modelName();
 

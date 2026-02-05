@@ -1,15 +1,15 @@
 {
-    "name": "rashed/laravel-generator",
+    "name": "ahmed-tech-t/laravel-starter-kit",
     "description": "Custom module generator for Laravel",
     "autoload": {
         "psr-4": {
-            "Rashed\\Generator\\": "src/"
+            "AhmedTechT\\Generator\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Rashed\\Generator\\GeneratorServiceProvider"
+                "AhmedTechT\\Generator\\GeneratorServiceProvider"
             ]
         }
     }
