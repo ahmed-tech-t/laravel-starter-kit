@@ -16,21 +16,11 @@ Generates the following layers automatically:
 
 ## Installation 🛠️
 
-Since this package is in development, add the repository to your project's `composer.json`:
 
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "[https://github.com/ahmed-tech-t/laravel-starter-kit](https://github.com/ahmed-tech-t/laravel-starter-kit)"
-    }
-],
-
-```
-Then, run the installation command:
+Run the following command in your Laravel project:
 
 ```bash
-composer require ahmed-tech-t/laravel-starter-kit:dev-main
+composer require ahmed-tech-t/laravel-starter-kit
 ```
 Usage 💡
 
