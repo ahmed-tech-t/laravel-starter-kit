@@ -9,7 +9,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AhmedTechT\\Generator\\GeneratorServiceProvider"
+                "AhmedTechT\\Generator\\GeneratorServiceProvider",
+                "AhmedTechT\\Generator\\RepositoryServiceProvider"
             ]
         }
     }
