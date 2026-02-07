@@ -15,8 +15,8 @@ class {{ name }} extends BaseController
     protected string $updateRequest = Update{{ model }}Request::class;
 
 
-    public function __construct(private {{ model }}Service $service)
+     public function __construct(private {{ model }}Service ${{ modelVar }}Service)
     {
-        $this->service = $service;
+        $this->service = ${{ modelVar }}Service;
     }
 }

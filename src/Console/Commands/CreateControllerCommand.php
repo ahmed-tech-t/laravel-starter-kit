@@ -30,17 +30,25 @@ class CreateControllerCommand extends GeneratorCommand
         return trim($this->argument('name'));
     }
 
-
+    function modelVar()
+    {
+        $model = $this->modelName();
+        return lcfirst($model);
+    }
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
 
         $nameInput = $this->getNameInput();
         $model = $this->modelName();
+        $modelVar = $this->modelVar();
 
         $stub = str_replace('{{ name }}', $nameInput, $stub);
 
         $stub = str_replace('{{ model }}', $model, $stub);
+
+        $stub = str_replace('{{ modelVar }}', $modelVar, $stub);
+
         return $stub;
     }
 }
