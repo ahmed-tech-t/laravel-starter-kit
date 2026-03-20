@@ -4,7 +4,7 @@ namespace {{baseRepoImplPath}};
 use {{ baseRepoPath }}\{{ model }}Repo;
 use {{ baseModelPath }}\{{ model }};
 use {{ baseMapperPath }}\{{ model }}Mapper;
-
+use AhmedTechT\Generator\Base\EloquentRepoImpl\BaseERepo;
 
 class {{ name }} extends BaseERepo implements {{ model }}Repo {
      protected $modelClass = {{ model }}::class;

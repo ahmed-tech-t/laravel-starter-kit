@@ -1,6 +1,6 @@
 <?php
 
-namespace AhmedTechT\Generator\Base\EloquentRepoImp;
+namespace AhmedTechT\Generator\Base\EloquentRepoImpl;
 
 use AhmedTechT\Generator\Base\BaseRepo;
 
