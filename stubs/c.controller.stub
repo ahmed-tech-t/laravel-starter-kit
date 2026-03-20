@@ -6,7 +6,7 @@ use {{ baseResourcePath }}\{{ model }}Resource;
 use {{ baseRequestPath }}\{{ model }}\Create{{ model }}Request;
 use {{ baseRequestPath }}\{{ model }}\Update{{ model }}Request;
 
-use namespace AhmedTechT\Generator\Base\BaseController;
+use AhmedTechT\Generator\Base\BaseController;
 
 
 

@@ -18,7 +18,7 @@ class RunAllCommand extends Command
 
         $this->info("Building the $name empire...");
 
-        $this->call('make:model', ['name' => $root . Paths::MODEL . $name, '-m' => true]);
+        $this->call('make:model', ['name' => $root . Paths::MODEL . '/' . $name, '-m' => true]);
         $this->call('make:entity', ['name' => $name]);
         $this->call('make:mapper', ['name' => $name]);
         $this->call('make:dto', ['name' => $name]);
