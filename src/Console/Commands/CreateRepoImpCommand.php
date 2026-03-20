@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateRepoImpCommand extends GeneratorCommand
@@ -20,7 +21,7 @@ class CreateRepoImpCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Infrastructure\Persistence\repo';
+        return $rootNamespace . '\\' . trim(Paths::REPO_IMPL, '\\');
     }
 
 
@@ -41,13 +42,20 @@ class CreateRepoImpCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
+        $root = $this->laravel->getNamespace();
 
-        $nameInput = $this->getNameInput();
-        $model = $this->modelName();
 
-        $stub = str_replace('{{ name }}', $nameInput, $stub);
+        $replacements = [
+            '{{ baseRepoPath }}' => $root . Paths::REPO,
+            '{{ baseRepoImplPath }}' => $root . Paths::REPO_IMPL,
+            '{{ baseModelPath }}' => $root . Paths::MODEL,
+            '{{ baseMapperPath }}' => $root . Paths::MAPPER,
+            '{{name}}' => $this->getNameInput(),
+            '{{model}}' => $this->modelName(),
+        ];
 
-        $stub = str_replace('{{ model }}', $model, $stub);
-        return $stub;
+
+
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
     }
 }

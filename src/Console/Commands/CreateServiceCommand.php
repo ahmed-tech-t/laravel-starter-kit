@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateServiceCommand extends GeneratorCommand
@@ -16,7 +17,7 @@ class CreateServiceCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Application\Services';
+        return $rootNamespace . '\\' . trim(Paths::SERVICE, '\\');
     }
 
     protected function getNameInput()
@@ -34,13 +35,16 @@ class CreateServiceCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
+        $root = $this->laravel->getNamespace();
 
-        $nameInput = $this->getNameInput();
-        $model = $this->modelName();
+        $replacements = [
+            '{{ baseServicePath }}' => $root . Paths::SERVICE,
+            '{{ baseEntityPath }}' => $root . Paths::ENTITY,
+            '{{ baseRepoPath }}' => $root . Paths::REPO,
+            '{{ name }}' => $this->getNameInput(),
+            '{{ model }}' => $this->modelName(),
+        ];
 
-        $stub = str_replace('{{ name }}', $nameInput, $stub);
-
-        $stub = str_replace('{{ model }}', $model, $stub);
-        return $stub;
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
     }
 }

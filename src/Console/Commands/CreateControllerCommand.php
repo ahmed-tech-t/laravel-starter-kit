@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateControllerCommand extends GeneratorCommand
@@ -16,7 +17,7 @@ class CreateControllerCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Interfaces\Http\Controllers';
+        return $rootNamespace . '\\' . trim(Paths::CONTROLLER, '\\');
     }
 
     protected function getNameInput()
@@ -35,20 +36,21 @@ class CreateControllerCommand extends GeneratorCommand
         $model = $this->modelName();
         return lcfirst($model);
     }
+
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
+        $root = $this->laravel->getNamespace();
 
-        $nameInput = $this->getNameInput();
-        $model = $this->modelName();
-        $modelVar = $this->modelVar();
+        $replacements = [
+            '{{ baseControllerPath }}' => $root . Paths::CONTROLLER,
+            '{{ baseResourcePath }}' => $root . Paths::RESOURCE,
+            '{{ baseRequestPath }}' => $root . Paths::REQUEST,
+            '{{ model }}' => $this->modelName(),
+            '{{ modelVar }}' => $this->modelVar(),
+            '{{ name }}' => $this->getNameInput(),
+        ];
 
-        $stub = str_replace('{{ name }}', $nameInput, $stub);
-
-        $stub = str_replace('{{ model }}', $model, $stub);
-
-        $stub = str_replace('{{ modelVar }}', $modelVar, $stub);
-
-        return $stub;
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
     }
 }

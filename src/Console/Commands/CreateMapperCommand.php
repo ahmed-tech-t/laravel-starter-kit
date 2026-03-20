@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateMapperCommand extends GeneratorCommand
@@ -16,7 +17,7 @@ class CreateMapperCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Application\Mapper';
+        return $rootNamespace . '\\' . trim(Paths::MAPPER, '\\');
     }
 
     protected function getNameInput()
@@ -35,12 +36,16 @@ class CreateMapperCommand extends GeneratorCommand
     {
         $stub = parent::buildClass($name);
 
-        $nameInput = $this->getNameInput();
-        $model = $this->modelName();
+        $root = $this->laravel->getNamespace();
 
-        $stub = str_replace('{{ name }}', $nameInput, $stub);
+        $replacements = [
+            '{{ baseMapperPath }}' => $root . Paths::MAPPER,
+            '{{ baseEntityPath }}' => $root . Paths::ENTITY,
+            '{{ name }}' => $this->getNameInput(),
+            '{{ model }}' => $this->modelName()
+        ];
 
-        $stub = str_replace('{{ model }}', $model, $stub);
-        return $stub;
+
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
     }
 }

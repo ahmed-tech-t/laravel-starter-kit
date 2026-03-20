@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\Services;
+namespace {{baseServicePath}};
 
-use App\Domain\Entities\{{ model }}Entity;
-use App\Domain\Repo\{{ model }}Repo;
+use {{baseEntityPath}}\{{ model }}Entity;
+use {{baseRepoPath}}\{{ model }}Repo;
 
 class {{ name }} extends BaseService
 {

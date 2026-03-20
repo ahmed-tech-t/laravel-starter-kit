@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateEntityCommand extends GeneratorCommand
@@ -16,7 +17,7 @@ class CreateEntityCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Domain\Entities';
+        return $rootNamespace . '\\' . trim(Paths::ENTITY, '\\');
     }
 
     protected function getNameInput()
@@ -29,9 +30,13 @@ class CreateEntityCommand extends GeneratorCommand
     {
         $stub = parent::buildClass($name);
 
-        $nameInput = $this->getNameInput();
+        $root = $this->laravel->getNamespace();
 
-        return str_replace('{{ name }}', $nameInput, $stub);
+        $replacements = [
+            '{{ baseEntityPath }}' => $root . Paths::ENTITY,
+            '{{ name }}' => $this->getNameInput(),
+        ];
 
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
     }
 }

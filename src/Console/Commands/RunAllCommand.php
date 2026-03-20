@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\Command;
 
 class RunAllCommand extends Command
@@ -13,19 +14,20 @@ class RunAllCommand extends Command
     public function handle()
     {
         $name = $this->argument('name');
+        $root = $this->laravel->getNamespace();
 
         $this->info("Building the $name empire...");
 
-        $this->call('make:model', ['name' => 'App/Infrastructure/Persistence/Models/' . $name, '-m' => true]);
+        $this->call('make:model', ['name' => $root . Paths::MODEL . $name, '-m' => true]);
         $this->call('make:entity', ['name' => $name]);
         $this->call('make:mapper', ['name' => $name]);
         $this->call('make:dto', ['name' => $name]);
         $this->call('make:repo', ['name' => $name]);
         $this->call('make:repoImpl', ['name' => $name]);
         $this->call('make:service', ['name' => $name]);
-        $this->call('make:request', ['name' => 'App/Interfaces/Http/Requests/' . $name . '/Create' . $name . 'Request']);
-        $this->call('make:request', ['name' => 'App/Interfaces/Http/Requests/' . $name . '/Update' . $name . 'Request']);
-        $this->call('make:resource', ['name' => 'App/Interfaces/Http/Resources/' . $name . 'Resource']);
+        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/Create' . $name . 'Request']);
+        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/Update' . $name . 'Request']);
+        $this->call('make:resource', ['name' => $root . Paths::RESOURCE . '/' . $name . 'Resource']);
         $this->call('make:controller', ['name' => $name]);
     }
 }

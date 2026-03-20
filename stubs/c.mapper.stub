@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\Mapper;
+namespace {{baseMapperPath}};
 
-use App\Domain\Entities\{{ model }}Entity;
+use {{ baseEntityPath }}\{{ model }}Entity;
 
-class {{ name }}
+class {{ name }} implements BaseMapper
 {
     public static function modelToEntity($model)
     {

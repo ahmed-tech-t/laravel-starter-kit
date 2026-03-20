@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator\Console\Commands;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Console\GeneratorCommand;
 
 class CreateDtoCommand extends GeneratorCommand
@@ -16,7 +17,7 @@ class CreateDtoCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Application\DTOs';
+        return $rootNamespace . '\\' . trim(Paths::DTO, '\\');
     }
 
     protected function getNameInput()
@@ -28,10 +29,20 @@ class CreateDtoCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
+        $root = $this->laravel->getNamespace();
 
         $nameInput = $this->getNameInput();
 
-        return str_replace('{{ name }}', $nameInput, $stub);
+        $replacements = [
+            '{{ baseDtoPath }}' => $root . Paths::DTO,
+            '{{ name }}' => $nameInput
+        ];
+
+        return str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $stub
+        );
 
     }
 }

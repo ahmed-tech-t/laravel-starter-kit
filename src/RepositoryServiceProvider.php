@@ -2,6 +2,7 @@
 
 namespace AhmedTechT\Generator;
 
+use AhmedTechT\Generator\Utils\Paths;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,17 @@ class RepositoryServiceProvider extends ServiceProvider
                     $this->app->bind($interfaceNamespace, $implementationNamespace);
                 }
             }
+        }
+    }
+
+    public function boot(): void
+    {
+        $projectNamespace = $this->app->getNamespace(); // usually "App\"
+        $targetController = $projectNamespace . Paths::CONTROLLER . '\Controller';
+
+        // 2. Create an alias so your package can find it under a static name
+        if (class_exists($targetController)) {
+            class_alias($targetController, 'AhmedTechT\Generator\Base\ProjectBaseController');
         }
     }
 }
