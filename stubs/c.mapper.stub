@@ -3,6 +3,7 @@
 namespace {{ baseMapperPath }};
 
 use {{ baseEntityPath }}\{{ model }}Entity;
+use AhmedTechT\Generator\Base\BaseMapper;
 
 class {{ name }} implements BaseMapper
 {

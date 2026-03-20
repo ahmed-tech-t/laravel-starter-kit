@@ -25,8 +25,8 @@ class RunAllCommand extends Command
         $this->call('make:repo', ['name' => $name]);
         $this->call('make:repoImpl', ['name' => $name]);
         $this->call('make:service', ['name' => $name]);
-        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/Create' . $name . 'Request']);
-        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/Update' . $name . 'Request']);
+        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/' . $name . '/Create' . $name . 'Request']);
+        $this->call('make:request', ['name' => $root . Paths::REQUEST . '/' . $name . '/Update' . $name . 'Request']);
         $this->call('make:resource', ['name' => $root . Paths::RESOURCE . '/' . $name . 'Resource']);
         $this->call('make:controller', ['name' => $name]);
     }
