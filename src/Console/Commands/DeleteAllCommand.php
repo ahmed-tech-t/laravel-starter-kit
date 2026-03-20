@@ -26,29 +26,31 @@ class DeleteAllCommand extends Command
 
         // 1. Delete standard Laravel files using built-in paths
         // Models and Migrations (Note: This doesn't delete the migration file itself unless you find the specific timestamped file)
-        $this->deleteFile(app_path('Models/' . $name . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::MODEL) . '/' . $name . '.php'));
 
         // 2. Delete your custom architectural layers using your Paths utility
-        $this->deleteFile(app_path(str_replace($root, '', Paths::ENTITY) . '/' . $name . '.php'));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::MAPPER) . '/' . $name . '.php'));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::DTO) . '/' . $name . '.php'));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::REPO) . '/' . $name . 'Repository.php'));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::REPO_IMPL) . '/' . $name . 'RepositoryImpl.php'));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::SERVICE) . '/' . $name . 'Service.php'));
-
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::ENTITY) . '/' . $name . 'Entity' . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::MAPPER) . '/' . $name . 'Mapper' . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::DTO) . '/' . $name . 'Dto' . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::REPO) . '/' . $name . 'Repo' . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::REPO_IMPL) . '/' . 'E' . $name . 'Repo' . '.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::SERVICE) . '/' . $name . 'Service' . '.php'));
         // 3. Delete Directories (Requests and Resources)
-        $this->deleteDirectory(app_path(str_replace($root, '', Paths::REQUEST) . '/' . $name));
-        $this->deleteFile(app_path(str_replace($root, '', Paths::RESOURCE) . '/' . $name . 'Resource.php'));
-        $this->deleteFile(app_path('Http/Controllers/' . $name . 'Controller.php'));
+        $this->deleteDirectory(app_path('/' . str_replace('\\', '/', Paths::REQUEST) . '/' . $name));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::RESOURCE) . '/' . $name . 'Resource.php'));
+        $this->deleteFile(app_path('/' . str_replace('\\', '/', Paths::CONTROLLER) . '/' . $name . 'Controller.php'));
 
         $this->info("The $name empire has fallen.");
     }
 
     protected function deleteFile($path)
     {
+
         if (File::exists($path)) {
             File::delete($path);
-            $this->line("<fg=red>Deleted:</> " . basename($path));
+            $this->line("<fg=red>Deleted:</> " . $path);
+        } else {
+            $this->error("<fg=red>File not found:</> " . $path);
         }
     }
 

@@ -16,6 +16,10 @@ class RunAllCommand extends Command
         $name = $this->argument('name');
         $root = $this->laravel->getNamespace();
 
+        if (!$this->confirm("Are you sure you want to create the $name empire?", true)) {
+            return;
+        }
+
         $this->info("Building the $name empire...");
 
         $this->call('make:model', ['name' => $root . Paths::MODEL . '/' . $name, '-m' => true]);
