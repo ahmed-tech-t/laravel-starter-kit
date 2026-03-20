@@ -1,5 +1,5 @@
 <?php
-namespace {{baseRepoImplPath}};
+namespace {{ baseRepoImplPath }};
 
 use {{ baseRepoPath }}\{{ model }}Repo;
 use {{ baseModelPath }}\{{ model }};

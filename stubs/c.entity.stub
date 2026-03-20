@@ -1,6 +1,6 @@
 <?php
 
-namespace {{baseEntityPath}};
+namespace {{ baseEntityPath }};
 
 use Carbon\Carbon;
 

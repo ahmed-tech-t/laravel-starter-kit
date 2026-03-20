@@ -44,6 +44,7 @@ class CreateControllerCommand extends GeneratorCommand
 
         $replacements = [
             '{{ baseControllerPath }}' => $root . Paths::CONTROLLER,
+            '{{ baseServicePath }}' => $root . Paths::SERVICE,
             '{{ baseResourcePath }}' => $root . Paths::RESOURCE,
             '{{ baseRequestPath }}' => $root . Paths::REQUEST,
             '{{ model }}' => $this->modelName(),

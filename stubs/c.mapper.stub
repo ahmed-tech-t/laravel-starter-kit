@@ -1,6 +1,6 @@
 <?php
 
-namespace {{baseMapperPath}};
+namespace {{ baseMapperPath }};
 
 use {{ baseEntityPath }}\{{ model }}Entity;
 

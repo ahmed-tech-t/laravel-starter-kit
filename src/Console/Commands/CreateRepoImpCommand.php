@@ -50,8 +50,8 @@ class CreateRepoImpCommand extends GeneratorCommand
             '{{ baseRepoImplPath }}' => $root . Paths::REPO_IMPL,
             '{{ baseModelPath }}' => $root . Paths::MODEL,
             '{{ baseMapperPath }}' => $root . Paths::MAPPER,
-            '{{name}}' => $this->getNameInput(),
-            '{{model}}' => $this->modelName(),
+            '{{ name }}' => $this->getNameInput(),
+            '{{ model }}' => $this->modelName(),
         ];
 
 

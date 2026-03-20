@@ -1,5 +1,5 @@
 <?php
-namespace {{baseRepoPath}};
+namespace {{ baseRepoPath }};
 
 interface {{ name }} extends BaseRepo
 {
