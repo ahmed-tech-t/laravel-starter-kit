@@ -11,6 +11,8 @@ use AhmedTechT\Generator\Console\Commands\CreateEntityCommand;
 use AhmedTechT\Generator\Console\Commands\CreateMapperCommand;
 use AhmedTechT\Generator\Console\Commands\CreateRepoImpCommand;
 use AhmedTechT\Generator\Console\Commands\CreateRepositoryCommand;
+use AhmedTechT\Generator\Console\Commands\DeleteAllCommand;
+
 // استدعي كل الـ Commands بتاعتك هنا
 
 class GeneratorServiceProvider extends ServiceProvider
@@ -29,6 +31,7 @@ class GeneratorServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                DeleteAllCommand::class,
                 RunAllCommand::class,
                 CreateServiceCommand::class,
                 CreateControllerCommand::class,
