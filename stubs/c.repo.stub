@@ -1,0 +1,9 @@
+<?php
+namespace {{ baseRepoPath }};
+use AhmedTechT\Generator\Base\BaseRepo;
+
+interface {{ name }} extends BaseRepo
+{
+   
+}
+

@@ -1,0 +1,17 @@
+{
+    "name": "ahmed-tech-t/laravel-starter-kit",
+    "description": "Custom module generator for Laravel",
+    "autoload": {
+        "psr-4": {
+            "AhmedTechT\\Generator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AhmedTechT\\Generator\\GeneratorServiceProvider",
+                "AhmedTechT\\Generator\\RepositoryServiceProvider"
+            ]
+        }
+    }
+}

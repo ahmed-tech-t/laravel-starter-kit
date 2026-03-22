@@ -1,0 +1,42 @@
+<?php
+
+namespace AhmedTechT\Generator\Console\Commands;
+
+use AhmedTechT\Generator\Utils\Paths;
+use Illuminate\Console\GeneratorCommand;
+
+class CreateEntityCommand extends GeneratorCommand
+{
+
+    protected $signature = 'make:entity {name}';
+
+    protected function getStub()
+    {
+        return __DIR__ . '/../../../stubs/c.entity.stub';
+    }
+
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace . '\\' . trim(Paths::ENTITY, '\\');
+    }
+
+    protected function getNameInput()
+    {
+        $name = trim($this->argument('name'));
+        return $name . 'Entity';
+    }
+
+    protected function buildClass($name)
+    {
+        $stub = parent::buildClass($name);
+
+        $root = $this->laravel->getNamespace();
+
+        $replacements = [
+            '{{ baseEntityPath }}' => $root . Paths::ENTITY,
+            '{{ name }}' => $this->getNameInput(),
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $stub);
+    }
+}

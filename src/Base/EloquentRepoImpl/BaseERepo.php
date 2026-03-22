@@ -1,0 +1,127 @@
+<?php
+
+namespace AhmedTechT\Generator\Base\EloquentRepoImpl;
+
+use AhmedTechT\Generator\Base\BaseRepo;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\DB;
+
+
+class BaseERepo implements BaseRepo
+{
+
+    protected $modelClass;
+    protected $mapper;
+
+    protected $queryContext;
+    protected array $defaultRelationships = [];
+
+    protected array $withForPaginate = [];
+
+    protected array $searchFilters = [];
+
+    protected array $withSearch = [];
+
+
+
+    public function getPaginatedItems($perPage): LengthAwarePaginator
+    {
+        $query = ($this->modelClass)::query();
+        if (!empty($this->withForPaginate)) {
+            $query->with($this->withForPaginate);
+        }
+
+        $items = $query->
+            orderBy('created_at', 'desc')
+            ->paginate($perPage)
+            ->through(
+                fn($item) =>
+                ($this->mapper)::modelToEntity($item)
+            );
+        return $items;
+    }
+
+    public function codeExists(string $code): bool
+    {
+        return ($this->modelClass)::where('code', $code)->exists();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create($entity)
+    {
+        return DB::transaction(function () use ($entity) {
+            $model = ($this->modelClass)::create($entity->toArray())->refresh();
+            return ($this->mapper)::modelToEntity($model);
+        });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function destroy(int $id): string
+    {
+
+        $deletedCount = ($this->modelClass)::destroy($id);
+        if ($deletedCount === 0) {
+            throw new ModelNotFoundException("Item with ID $id not found.");
+        }
+        return 'item deleted successfully';
+    }
+
+
+    public function findAll()
+    {
+        $entities = ($this->modelClass)::all()->map(fn($model) => ($this->mapper)::modelToEntity($model));
+        return $entities;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findById(int $id)
+    {
+
+        $query = ($this->modelClass)::query();
+        if (!empty($this->defaultRelationships)) {
+            $query->with($this->defaultRelationships);
+        }
+
+        $model = $query->findOrFail($id);
+        return ($this->mapper)::modelToEntity($model);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update($entity)
+    {
+        //  Log::info("Your message here", ['entity' => $entity]);
+        $model = ($this->modelClass)::findOrFail($entity->id);
+        ($this->modelClass)::where('id', $entity->id)->update($entity->toArray());
+        return ($this->mapper)::modelToEntity($model->refresh());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function search($dto, $perPage)
+    {
+        $context = ($this->queryContext)::create($this->modelClass::query(), $dto);
+        return app(Pipeline::class)
+            ->send($context)
+            ->through($this->searchFilters)
+            ->thenReturn()
+            ->query
+            ->with($this->withSearch)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage)
+            ->through(
+                fn($item) => ($this->mapper)::modelToEntity($item)
+            );
+    }
+}

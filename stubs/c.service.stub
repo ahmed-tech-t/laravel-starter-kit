@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ baseServicePath }};
+
+use {{ baseEntityPath }}\{{ model }}Entity;
+use {{ baseRepoPath }}\{{ model }}Repo;
+use AhmedTechT\Generator\Base\BaseService;
+
+class {{ name }} extends BaseService
+{
+    protected string $entityClass = {{ model }}Entity::class;
+
+    public function __construct({{ model }}Repo $repo)
+    {
+        $this->repo = $repo;
+    }
+}

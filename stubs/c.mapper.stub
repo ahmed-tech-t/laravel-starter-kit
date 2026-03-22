@@ -1,0 +1,14 @@
+<?php
+
+namespace {{ baseMapperPath }};
+
+use {{ baseEntityPath }}\{{ model }}Entity;
+use AhmedTechT\Generator\Base\BaseMapper;
+
+class {{ name }} implements BaseMapper
+{
+    public static function modelToEntity($model)
+    {
+        return new {{ model }}Entity();
+    }
+}

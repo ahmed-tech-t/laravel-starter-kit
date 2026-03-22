@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ baseControllerPath }};
+use {{ baseServicePath }}\{{ model }}Service;
+use {{ baseResourcePath }}\{{ model }}Resource;
+use {{ baseRequestPath }}\{{ model }}\Create{{ model }}Request;
+use {{ baseRequestPath }}\{{ model }}\Update{{ model }}Request;
+
+use AhmedTechT\Generator\Base\BaseController;
+
+
+
+class {{ name }} extends BaseController
+{
+    protected string $resourceClass = {{ model }}Resource::class;
+    protected string $storeRequest = Create{{ model }}Request::class;
+    protected string $updateRequest = Update{{ model }}Request::class;
+
+
+     public function __construct(private {{ model }}Service ${{ modelVar }}Service)
+    {
+        $this->service = ${{ modelVar }}Service;
+    }
+}
