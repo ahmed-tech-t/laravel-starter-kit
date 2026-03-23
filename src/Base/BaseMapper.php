@@ -4,5 +4,5 @@ namespace AhmedTechT\Generator\Base;
 
 interface BaseMapper
 {
-    public function modelToEntity($model);
+    public static function modelToEntity($model);
 }
